@@ -1,12 +1,9 @@
 import {Router} from 'express';
+import {getAllEjemplos} from '../controllers/ejemplo.controllers.js';
 
 const ejemplo = Router();
 
-ejemplo.get('/', (req, res) => {
-    res.json({
-        msg: 'get API'
-    });
-});
+ejemplo.get('/', getAllEjemplos);
 
 ejemplo.get('/:id', (req, res) => {
     const {id} = req.params;
