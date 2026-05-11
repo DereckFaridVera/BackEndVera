@@ -1,1 +1,466 @@
-<h1>Pagina no encontrada</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('assets/ecuador.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #1f2937;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: linear-gradient(90deg, #FF6B35, #FF8C42);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 110%;
+            height: 40px;
+            background: rgba(255,255,255,0.06);
+            transform: translateX(-50%) rotate(3deg);
+            border-radius: 50%;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            background-color: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(8px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 22px;
+            display: block;
+            border-radius: 999px;
+            transition: all 0.3s ease;
+            background: rgba(255, 107, 53, 0.15);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: #FF6B35;
+            border-color: #FF6B35;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 53, 0.2);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background-color: rgba(255,255,255,0.93);
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin-bottom: 24px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+            color: #1F2937;
+            font-weight: 600;
+        }
+
+        .section > h2 {
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+        }
+
+        .btn {
+            background-color: #FF6B35;
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 999px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background-color: #E55A24;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.25);
+        }
+
+        .btn-danger {
+            background-color: #DC2626;
+        }
+
+        .btn-danger:hover {
+            background-color: #991B1B;
+        }
+
+        .btn-warning {
+            background-color: #F59E0B;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #D97706;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .item-card {
+            background-color: rgba(255,255,255,0.93);
+            border-radius: 18px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+            padding: 20px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            backdrop-filter: blur(4px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .item-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+        }
+
+        .item-card h3 {
+            margin-bottom: 12px;
+            color: #386364;
+            font-weight: 600;
+        }
+
+        .item-card p {
+            margin-bottom: 8px;
+        }
+
+        .item-card ul {
+            margin-top: 8px;
+            padding-left: 18px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.55);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 999;
+        }
+
+        .modal-content {
+            background-color: rgba(255,255,255,0.97);
+            padding: 24px;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            border: 1px solid rgba(255, 107, 53, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 24px;
+            color: #FF6B35;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: #E55A24;
+        }
+
+        .brand-tag {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.92);
+        }
+
+        .hero-note {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.8);
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Marathon Sports</h1>
+        <p class="hero-note">Gestiona productos deportivos, clientes y pedidos con estilo y velocidad.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('products')" class="active">Productos</a></li>
+            <li><a href="#" onclick="showSection('clients')">Clientes</a></li>
+            <li><a href="#" onclick="showSection('orders')">Pedidos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Productos -->
+        <div id="products" class="section active">
+            <div class="card">
+                <h2>Agregar Nuevo Producto</h2>
+                <form id="productForm">
+                    <div class="form-group">
+                        <label for="productNombre">Nombre</label>
+                        <input type="text" id="productNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrecio">Precio</label>
+                        <input type="number" id="productPrecio" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productTalla">Talla</label>
+                        <input type="text" id="productTalla" required>
+                    </div>
+                    <button type="submit" class="btn">Agregar Producto</button>
+                </form>
+            </div>
+
+            <h2>Lista de Productos</h2>
+            <div id="productsList" class="grid">
+                <!-- Productos se cargarán aquí -->
+            </div>
+        </div>
+
+        <!-- Clientes -->
+        <div id="clients" class="section">
+            <div class="card">
+                <h2>Agregar Nuevo Cliente</h2>
+                <form id="clientForm">
+                    <div class="form-group">
+                        <label for="clientNombre">Nombre</label>
+                        <input type="text" id="clientNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail">Email</label>
+                        <input type="email" id="clientEmail" required>
+                    </div>
+                    <button type="submit" class="btn">Agregar Cliente</button>
+                </form>
+            </div>
+
+            <h2>Lista de Clientes</h2>
+            <div id="clientsList" class="grid">
+                <!-- Clientes se cargarán aquí -->
+            </div>
+        </div>
+
+        <!-- Pedidos -->
+        <div id="orders" class="section">
+            <div class="card">
+                <h2>Crear Nuevo Pedido</h2>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="orderClient">Cliente</label>
+                        <select id="orderClient" required>
+                            <option value="">Seleccionar cliente</option>
+                        </select>
+                    </div>
+                    <div id="orderProducts">
+                        <!-- Productos del pedido -->
+                    </div>
+                    <button type="button" class="btn" onclick="addProductToOrder()">Agregar Producto</button>
+                    <div class="form-group">
+                        <label for="orderTotal">Total</label>
+                        <input type="number" id="orderTotal" step="0.01" readonly>
+                    </div>
+                    <button type="submit" class="btn">Crear Pedido</button>
+                </form>
+            </div>
+
+            <h2>Lista de Pedidos</h2>
+            <div id="ordersList" class="grid">
+                <!-- Pedidos se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar productos -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('productModal')">&times;</span>
+            <h2>Editar Producto</h2>
+            <form id="editProductForm">
+                <input type="hidden" id="editProductId">
+                <div class="form-group">
+                    <label for="editProductNombre">Nombre</label>
+                    <input type="text" id="editProductNombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProductPrecio">Precio</label>
+                    <input type="number" id="editProductPrecio" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProductTalla">Talla</label>
+                    <input type="text" id="editProductTalla" required>
+                </div>
+                <button type="submit" class="btn">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para editar clientes -->
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('clientModal')">&times;</span>
+            <h2>Editar Cliente</h2>
+            <form id="editClientForm">
+                <input type="hidden" id="editClientId">
+                <div class="form-group">
+                    <label for="editClientNombre">Nombre</label>
+                    <input type="text" id="editClientNombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="editClientEmail">Email</label>
+                    <input type="email" id="editClientEmail" required>
+                </div>
+                <button type="submit" class="btn">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        Marathon Sports | Gestión de inventario y pedidos deportivos
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
